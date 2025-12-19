@@ -8,9 +8,11 @@ import { UsersModule } from './users/users.module';
 import { DataSource } from 'typeorm';
 import { SeederModule } from './seeder/seeder.module';
 import { typeOrmConfig } from './config/typeorm.config';
+import { MovieModule } from './movie/movie.module';
+import { BookingModule } from './booking/booking.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), UsersModule, SeederModule],
+  imports: [TypeOrmModule.forRoot(typeOrmConfig), UsersModule, SeederModule, MovieModule, BookingModule],
   controllers: [AppController, UsersController],
   providers: [AppService, UsersService],
 })

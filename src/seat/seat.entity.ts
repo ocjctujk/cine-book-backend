@@ -1,5 +1,4 @@
-import { SeatClass } from '@src/seatClass/seat-class.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Seat {
@@ -10,7 +9,4 @@ export class Seat {
     unique: true,
   })
   name: string;
-
-  @ManyToOne(() => SeatClass, (seatClass) => seatClass.seats)
-  seatClass: SeatClass;
 }

@@ -10,15 +10,6 @@ export class MovieService {
     private readonly movieRepository: Repository<Movie>,
   ) {}
   async findAll(): Promise<Movie[]> {
-    return this.movieRepository.find({
-      relations: [
-        'genres',
-        'languages',
-        'formats',
-        'certificate',
-        'people',
-        'offers',
-      ],
-    });
+    return this.movieRepository.find();
   }
 }

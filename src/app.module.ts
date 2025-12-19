@@ -10,9 +10,11 @@ import { SeederModule } from './seeder/seeder.module';
 import { typeOrmConfig } from './config/typeorm.config';
 import { MovieModule } from './movie/movie.module';
 import { BookingModule } from './booking/booking.module';
+import { ShowModule } from './show/show.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), UsersModule, SeederModule, MovieModule, BookingModule],
+  imports: [TypeOrmModule.forRoot(typeOrmConfig), UsersModule, SeederModule, MovieModule, BookingModule, ShowModule, AuthModule],
   controllers: [AppController, UsersController],
   providers: [AppService, UsersService],
 })

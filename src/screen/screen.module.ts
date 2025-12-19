@@ -6,4 +6,4 @@ import { Screen } from './screen.entity';
   imports: [TypeOrmModule.forFeature([Screen])],
   exports: [TypeOrmModule],
 })
-export class SeatModule {}
+export class ScreenModule {}

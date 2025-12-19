@@ -1,9 +1,14 @@
 // src/seeder/seeder.service.ts
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Repository, ObjectLiteral } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Movie } from '@src/movie/movie.entity';
 import { Seat } from '@src/seat/seat.entity';
+import { Screen } from '@src/screen/screen.entity';
+import { Show } from '@src/show/show.entity';
+import { Venue } from '@src/venue/venue.entity';
+import * as path from 'path';
+import * as fs from 'fs';
 
 @Injectable()
 export class SeederService {
@@ -12,124 +17,170 @@ export class SeederService {
     private readonly movieRepo: Repository<Movie>,
     @InjectRepository(Seat)
     private readonly seatRepo: Repository<Seat>,
+    @InjectRepository(Screen)
+    private readonly screenRepo: Repository<Screen>,
+    @InjectRepository(Show)
+    private readonly showRepo: Repository<Show>,
+    @InjectRepository(Venue)
+    private readonly venueRepo: Repository<Venue>,
   ) {}
+
+  private async seedFromFile<T extends ObjectLiteral>(
+    filePath: string,
+    repo: Repository<T>,
+    key?: string,
+  ): Promise<T[]> {
+    const absolutePath = path.resolve(__dirname, filePath);
+    const rawData = fs.readFileSync(absolutePath, 'utf8');
+    let parsedData: unknown = JSON.parse(rawData);
+
+    if (key) parsedData = (parsedData as Record<string, unknown>)[key];
+    if (!Array.isArray(parsedData))
+      throw new Error(`Invalid data format in ${filePath}`);
+
+    const data = parsedData as T[];
+    const count = await repo.count();
+    if (count === 0) {
+      await repo.save(data);
+      console.log(`✅ Seeded ${data.length} records from ${filePath}`);
+    } else {
+      console.log(
+        `⚠️  ${repo.metadata.name} already contains data, skipping seeding.`,
+      );
+    }
+
+    return repo.find();
+  }
 
   async seed() {
     console.log('🌱 Starting database seeding...');
 
-    const existingMovies = await this.movieRepo.find();
-    if (existingMovies.length === 0) {
-      const movies: Partial<Movie>[] = [
-        {
-          name: 'Dhurandhar',
-          description: 'A gripping action drama starring Ranbern Singh.',
-          release_date: new Date('2024-02-01'),
-          duration: 138,
-          poster_url: 'https://dummyimage.com/300x450/000/fff&text=Dhurandhar',
-        },
-        {
-          name: 'The Lost City',
-          description: 'A thrilling adventure through forgotten ruins.',
-          release_date: new Date('2023-05-10'),
-          duration: 120,
-          poster_url:
-            'https://dummyimage.com/300x450/222/fff&text=The+Lost+City',
-        },
-        {
-          name: 'Moonfall',
-          description: 'A sci-fi journey to save Earth from a lunar disaster.',
-          release_date: new Date('2022-08-15'),
-          duration: 130,
-          poster_url: 'https://dummyimage.com/300x450/444/fff&text=Moonfall',
-        },
-        {
-          name: 'Eternal Summer',
-          description:
-            'A heartfelt coming-of-age story about friendship and love.',
-          release_date: new Date('2021-06-12'),
-          duration: 110,
-          poster_url:
-            'https://dummyimage.com/300x450/555/fff&text=Eternal+Summer',
-        },
-        {
-          name: 'Midnight Heist',
-          description: 'A fast-paced crime thriller set in New York.',
-          release_date: new Date('2024-10-21'),
-          duration: 125,
-          poster_url:
-            'https://dummyimage.com/300x450/333/fff&text=Midnight+Heist',
-        },
-        {
-          name: 'Crimson Shadow',
-          description: 'A mysterious assassin seeks redemption.',
-          release_date: new Date('2023-11-03'),
-          duration: 140,
-          poster_url:
-            'https://dummyimage.com/300x450/880000/fff&text=Crimson+Shadow',
-        },
-        {
-          name: 'Neon Dreams',
-          description: 'A cyberpunk thriller about identity and technology.',
-          release_date: new Date('2025-01-15'),
-          duration: 118,
-          poster_url:
-            'https://dummyimage.com/300x450/0066ff/fff&text=Neon+Dreams',
-        },
-        {
-          name: 'Frozen Path',
-          description: 'A survival tale set in the icy wilderness.',
-          release_date: new Date('2022-12-19'),
-          duration: 112,
-          poster_url:
-            'https://dummyimage.com/300x450/00cccc/fff&text=Frozen+Path',
-        },
-        {
-          name: 'Hidden Truths',
-          description: 'A legal drama that uncovers deep secrets.',
-          release_date: new Date('2023-03-02'),
-          duration: 127,
-          poster_url:
-            'https://dummyimage.com/300x450/660066/fff&text=Hidden+Truths',
-        },
-        {
-          name: 'Afterlight',
-          description: 'A time-bending sci-fi mystery.',
-          release_date: new Date('2024-07-09'),
-          duration: 135,
-          poster_url:
-            'https://dummyimage.com/300x450/000099/fff&text=Afterlight',
-        },
-        {
-          name: 'Golden Horizon',
-          description: 'A historical epic about courage and destiny.',
-          release_date: new Date('2023-09-17'),
-          duration: 142,
-          poster_url:
-            'https://dummyimage.com/300x450/996600/fff&text=Golden+Horizon',
-        },
-        {
-          name: 'Echoes of Tomorrow',
-          description: 'A moving sci-fi drama about love and memory.',
-          release_date: new Date('2025-05-27'),
-          duration: 129,
-          poster_url:
-            'https://dummyimage.com/300x450/004d40/fff&text=Echoes+of+Tomorrow',
-        },
-      ];
+    // 1️⃣ Seed venues first
+    const venues = await this.seedFromFile<Venue>(
+      '../../BackendDump/venues.json',
+      this.venueRepo,
+      'venue',
+    );
 
-      await this.movieRepo.save(movies);
-      console.log(`🎬 Seeded ${movies.length} movies`);
+    // 2️⃣ Seed screens with random venues
+    await this.seedScreensWithVenues(venues);
+
+    // 3️⃣ Seed seats with random screens
+    await this.seedSeatsWithScreens();
+
+    // 4️⃣ Seed movies (independent)
+    await this.seedFromFile<Movie>(
+      '../../BackendDump/movies.json',
+      this.movieRepo,
+      'movie',
+    );
+
+    // 5️⃣ Seed shows with random relationships
+    await this.seedShowsWithRelationships();
+
+    console.log('🌿 All seeding complete!');
+  }
+
+  private async seedScreensWithVenues(venues: Venue[]): Promise<void> {
+    const filePath = '../../BackendDump/screens.json';
+    const absolutePath = path.resolve(__dirname, filePath);
+
+    const rawData = fs.readFileSync(absolutePath, 'utf8');
+    const parsedData: { screen: any[] } = JSON.parse(rawData);
+    const screensData = parsedData.screen;
+
+    const count = await this.screenRepo.count();
+    if (count === 0) {
+      const getRandom = <T>(arr: T[]): T =>
+        arr[Math.floor(Math.random() * arr.length)];
+
+      for (const screenData of screensData) {
+        const screen = new Screen();
+        Object.assign(screen, screenData);
+
+        // 🎲 Random venue assignment
+        screen.venue = getRandom(venues);
+
+        await this.screenRepo.save(screen);
+      }
+
+      console.log(`✅ Seeded ${screensData.length} screens with random venues`);
+    } else {
+      console.log(`⚠️  Screens already exist, skipping seeding.`);
     }
+  }
 
-    const existingSeats = await this.seatRepo.find();
-    if (existingSeats.length === 0) {
-      const seats = Array.from({ length: 30 }, (_, i) => ({
-        name: `M-${i + 1}`,
-      }));
-      await this.seatRepo.save(seats);
-      console.log(`💺 Seeded ${seats.length} seats`);
+  private async seedSeatsWithScreens(): Promise<void> {
+    const filePath = '../../BackendDump/seats.json';
+    const absolutePath = path.resolve(__dirname, filePath);
+
+    const rawData = fs.readFileSync(absolutePath, 'utf8');
+    const parsedData: { seat: any[] } = JSON.parse(rawData);
+    const seatsData = parsedData.seat;
+
+    const count = await this.seatRepo.count();
+    if (count === 0) {
+      const screens = await this.screenRepo.find();
+      if (!screens.length) throw new Error('❌ No screens found for seats!');
+
+      const getRandom = <T>(arr: T[]): T =>
+        arr[Math.floor(Math.random() * arr.length)];
+
+      for (const seatData of seatsData) {
+        const seat = new Seat();
+        Object.assign(seat, seatData);
+
+        // 🎲 Random screen assignment
+        seat.screen = getRandom(screens);
+
+        await this.seatRepo.save(seat);
+      }
+
+      console.log(`✅ Seeded ${seatsData.length} seats with random screens`);
+    } else {
+      console.log(`⚠️  Seats already exist, skipping seeding.`);
     }
+  }
 
-    console.log('✅ Seeding complete!');
+  private async seedShowsWithRelationships(): Promise<void> {
+    const filePath = '../../BackendDump/shows.json';
+    const absolutePath = path.resolve(__dirname, filePath);
+
+    const rawData = fs.readFileSync(absolutePath, 'utf8');
+    const parsedData: { show: any[] } = JSON.parse(rawData);
+    const showsData = parsedData.show;
+
+    const count = await this.showRepo.count();
+    if (count === 0) {
+      const allMovies = await this.movieRepo.find();
+      const allVenues = await this.venueRepo.find();
+      const allScreens = await this.screenRepo.find();
+
+      if (!allMovies.length) throw new Error('❌ No movies found to assign!');
+      if (!allVenues.length) throw new Error('❌ No venues found to assign!');
+      if (!allScreens.length) throw new Error('❌ No screens found to assign!');
+
+      const getRandom = <T>(arr: T[]): T =>
+        arr[Math.floor(Math.random() * arr.length)];
+
+      for (const showData of showsData) {
+        const show = new Show();
+        show.time = new Date(showData.time);
+        show.cost = showData.cost;
+
+        // 🎲 Assign random relationships
+        show.movie = getRandom(allMovies);
+        show.venue = getRandom(allVenues);
+        show.screen = getRandom(allScreens);
+
+        await this.showRepo.save(show);
+      }
+
+      console.log(
+        `✅ Seeded ${showsData.length} shows with random relationships`,
+      );
+    } else {
+      console.log(`⚠️  Shows already exist, skipping seeding.`);
+    }
   }
 }

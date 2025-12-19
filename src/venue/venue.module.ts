@@ -6,4 +6,4 @@ import { Venue } from './venue.entity';
   imports: [TypeOrmModule.forFeature([Venue])],
   exports: [TypeOrmModule],
 })
-export class SeatModule {}
+export class VenueModule {}

@@ -1,0 +1,88 @@
+{
+  "movie": [
+    {
+      "name": "Dhurandhar",
+      "description": "A gripping action drama starring Ranbern Singh.",
+      "release_date": "2024-02-01",
+      "poster_url": "https:\/\/dummyimage.com\/300x450\/000\/fff&text=Dhurandhar",
+      "duration": 138
+    },
+    {
+      "name": "The Lost City",
+      "description": "A thrilling adventure through forgotten ruins.",
+      "release_date": "2023-05-10",
+      "poster_url": "https:\/\/dummyimage.com\/300x450\/222\/fff&text=The+Lost+City",
+      "duration": 120
+    },
+    {
+      "name": "Moonfall",
+      "description": "A sci-fi journey to save Earth from a lunar disaster.",
+      "release_date": "2022-08-15",
+      "poster_url": "https:\/\/dummyimage.com\/300x450\/444\/fff&text=Moonfall",
+      "duration": 130
+    },
+    {
+      "name": "Eternal Summer",
+      "description": "A heartfelt coming-of-age story about friendship and love.",
+      "release_date": "2021-06-12",
+      "poster_url": "https:\/\/dummyimage.com\/300x450\/555\/fff&text=Eternal+Summer",
+      "duration": 110
+    },
+    {
+      "name": "Midnight Heist",
+      "description": "A fast-paced crime thriller set in New York.",
+      "release_date": "2024-10-21",
+      "poster_url": "https:\/\/dummyimage.com\/300x450\/333\/fff&text=Midnight+Heist",
+      "duration": 125
+    },
+    {
+      "name": "Crimson Shadow",
+      "description": "A mysterious assassin seeks redemption.",
+      "release_date": "2023-11-03",
+      "poster_url": "https:\/\/dummyimage.com\/300x450\/880000\/fff&text=Crimson+Shadow",
+      "duration": 140
+    },
+    {
+      "name": "Neon Dreams",
+      "description": "A cyberpunk thriller about identity and technology.",
+      "release_date": "2025-01-15",
+      "poster_url": "https:\/\/dummyimage.com\/300x450\/0066ff\/fff&text=Neon+Dreams",
+      "duration": 118
+    },
+    {
+      "name": "Frozen Path",
+      "description": "A survival tale set in the icy wilderness.",
+      "release_date": "2022-12-19",
+      "poster_url": "https:\/\/dummyimage.com\/300x450\/00cccc\/fff&text=Frozen+Path",
+      "duration": 112
+    },
+    {
+      "name": "Hidden Truths",
+      "description": "A legal drama that uncovers deep secrets.",
+      "release_date": "2023-03-02",
+      "poster_url": "https:\/\/dummyimage.com\/300x450\/660066\/fff&text=Hidden+Truths",
+      "duration": 127
+    },
+    {
+      "name": "Afterlight",
+      "description": "A time-bending sci-fi mystery.",
+      "release_date": "2024-07-09",
+      "poster_url": "https:\/\/dummyimage.com\/300x450\/000099\/fff&text=Afterlight",
+      "duration": 135
+    },
+    {
+      "name": "Golden Horizon",
+      "description": "A historical epic about courage and destiny.",
+      "release_date": "2023-09-17",
+      "poster_url": "https:\/\/dummyimage.com\/300x450\/996600\/fff&text=Golden+Horizon",
+      "duration": 142
+    },
+    {
+      "name": "Echoes of Tomorrow",
+      "description": "A moving sci-fi drama about love and memory.",
+      "release_date": "2025-05-27",
+      "poster_url": "https:\/\/dummyimage.com\/300x450\/004d40\/fff&text=Echoes+of+Tomorrow",
+      "duration": 129
+    }
+  ]
+}

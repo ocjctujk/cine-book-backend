@@ -1,0 +1,88 @@
+{
+  "venue": [
+    {
+      "name": "PVR Cinemas Forum Mall",
+      "address_line_1": "Forum Mall, 21-22",
+      "address_line_2": "Adugodi Main Road, Koramangala",
+      "city": "Bengaluru",
+      "state": "Karnataka"
+    },
+    {
+      "name": "INOX Garuda Mall",
+      "address_line_1": "Garuda Mall, Magrath Road",
+      "address_line_2": "Near Brigade Road",
+      "city": "Bengaluru",
+      "state": "Karnataka"
+    },
+    {
+      "name": "Cinepolis Royal Meenakshi Mall",
+      "address_line_1": "Royal Meenakshi Mall",
+      "address_line_2": "Bannerghatta Road",
+      "city": "Bengaluru",
+      "state": "Karnataka"
+    },
+    {
+      "name": "PVR Phoenix Marketcity",
+      "address_line_1": "Phoenix Marketcity",
+      "address_line_2": "Whitefield Main Road",
+      "city": "Bengaluru",
+      "state": "Karnataka"
+    },
+    {
+      "name": "IMAX Mantri Square",
+      "address_line_1": "Mantri Square Mall",
+      "address_line_2": "Malleshwaram",
+      "city": "Bengaluru",
+      "state": "Karnataka"
+    },
+    {
+      "name": "Cinepolis Orion Mall",
+      "address_line_1": "Orion Mall",
+      "address_line_2": "Dr. Rajkumar Road, Rajajinagar",
+      "city": "Bengaluru",
+      "state": "Karnataka"
+    },
+    {
+      "name": "PVR VR Mall",
+      "address_line_1": "VR Bengaluru",
+      "address_line_2": "Whitefield",
+      "city": "Bengaluru",
+      "state": "Karnataka"
+    },
+    {
+      "name": "INOX Lido Mall",
+      "address_line_1": "Lido Mall",
+      "address_line_2": "Ulsoor",
+      "city": "Bengaluru",
+      "state": "Karnataka"
+    },
+    {
+      "name": "Cinepolis ETA Namma Mall",
+      "address_line_1": "ETA Namma Mall",
+      "address_line_2": "Binny Pete",
+      "city": "Bengaluru",
+      "state": "Karnataka"
+    },
+    {
+      "name": "PVR Gold Lulu Mall",
+      "address_line_1": "Lulu Global Mall",
+      "address_line_2": "Rajaji Nagar",
+      "city": "Bengaluru",
+      "state": "Karnataka"
+    },
+    {
+      "name": "Cinéma La Scala",
+      "address_line_1": "12 MG Road",
+      "address_line_2": "Near Trinity Circle",
+      "city": "Bengaluru",
+      "state": "Karnataka"
+    },
+    {
+      "name": " multiplex CineGrand",
+      "address_line_1": "Elements Mall",
+      "address_line_2": "Nagawara",
+      "city": "Bengaluru",
+      "state": "Karnataka"
+    }
+  ]
+}

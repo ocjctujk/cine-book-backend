@@ -1,0 +1,43 @@
+{
+  "screen": [
+    {
+      "name": "Screen 1"
+    },
+    {
+      "name": "Screen 2"
+    },
+    {
+      "name": "IMAX"
+    },
+    {
+      "name": "Screen 3"
+    },
+    {
+      "name": "Gold Class"
+    },
+    {
+      "name": "Screen 1"
+    },
+    {
+      "name": "Dolby Cinema"
+    },
+    {
+      "name": "Screen 4"
+    },
+    {
+      "name": "VIP"
+    },
+    {
+      "name": "Screen 2"
+    },
+    {
+      "name": "3D Screen"
+    },
+    {
+      "name": "Screen 5"
+    },
+    {
+      "name": "Screen 1"
+    }
+  ]
+}

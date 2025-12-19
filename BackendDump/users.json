@@ -1,0 +1,16 @@
+{
+"user": [
+	{
+		"firstName" : "John",
+		"lastName" : "Doe",
+		"email" : "john.doe@example.com",
+		"password" : "password123",
+		"phone" : "9876543210",
+		"dob" : "1989-12-31T18:30:00.000Z",
+		"address_line_1" : "123 Main Street",
+		"address_line_2" : "Apt 4B",
+		"city" : "New York",
+		"state" : "NY",
+		"pincode" : "10001"
+	}
+]}

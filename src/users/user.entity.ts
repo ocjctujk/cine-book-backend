@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Booking } from '@src/booking/booking.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class User {
@@ -11,7 +12,7 @@ export class User {
   @Column({ length: 15 })
   lastName: string;
 
-  @Column({ length: 20, unique: true })
+  @Column({ length: 30, unique: true })
   email: string;
 
   @Column()
@@ -28,7 +29,7 @@ export class User {
   @Column({
     nullable: true,
   })
-  dob: Date;
+  dob: string;
 
   @Column({
     type: 'varchar',
@@ -64,4 +65,7 @@ export class User {
     length: '6',
   })
   pincode: string;
+
+  @OneToMany(() => Booking, (booking) => booking.show, { eager: true })
+  bookings: Booking[];
 }

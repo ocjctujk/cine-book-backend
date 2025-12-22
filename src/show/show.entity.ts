@@ -1,7 +1,14 @@
+import { Booking } from '@src/booking/booking.entity';
 import { Movie } from '@src/movie/movie.entity';
 import { Screen } from '@src/screen/screen.entity';
 import { Venue } from '@src/venue/venue.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Show {
@@ -23,4 +30,7 @@ export class Show {
 
   @ManyToOne(() => Screen, (screen) => screen.shows, { eager: true })
   screen: Screen;
+
+  @OneToMany(() => Booking, (booking) => booking.show, { eager: false })
+  bookings: Booking[];
 }

@@ -14,7 +14,15 @@ import { ShowModule } from './show/show.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), UsersModule, SeederModule, MovieModule, BookingModule, ShowModule, AuthModule],
+  imports: [
+    TypeOrmModule.forRoot(typeOrmConfig),
+    UsersModule,
+    SeederModule,
+    MovieModule,
+    BookingModule,
+    ShowModule,
+    AuthModule,
+  ],
   controllers: [AppController, UsersController],
   providers: [AppService, UsersService],
 })

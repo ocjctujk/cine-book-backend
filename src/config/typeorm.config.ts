@@ -6,6 +6,7 @@ import { Seat } from '@src/seat/seat.entity';
 import { Show } from '@src/show/show.entity';
 import { Venue } from '@src/venue/venue.entity';
 import { Screen } from '@src/screen/screen.entity';
+import { Booking } from '@src/booking/booking.entity';
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -14,6 +15,6 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   username: 'postgres',
   password: 'password',
   database: 'postgres',
-  entities: [User, Movie, Seat, Show, Venue, Screen, Seat],
+  entities: [User, Movie, Seat, Show, Venue, Screen, Booking],
   synchronize: true,
 };

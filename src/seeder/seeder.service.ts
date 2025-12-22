@@ -9,6 +9,9 @@ import { Show } from '@src/show/show.entity';
 import { Venue } from '@src/venue/venue.entity';
 import * as path from 'path';
 import * as fs from 'fs';
+import { Genre } from '@src/genre/genre.entity';
+import { Certificate } from '@src/certificates/certificate.entity';
+import { Worker } from '@src/worker/worker.entity';
 
 @Injectable()
 export class SeederService {
@@ -23,6 +26,12 @@ export class SeederService {
     private readonly showRepo: Repository<Show>,
     @InjectRepository(Venue)
     private readonly venueRepo: Repository<Venue>,
+    @InjectRepository(Genre)
+    private readonly genreRepo: Repository<Genre>,
+    @InjectRepository(Certificate)
+    private readonly certificateRepo: Repository<Certificate>,
+    @InjectRepository(Worker)
+    private readonly workerRepo: Repository<Worker>,
   ) {}
 
   private async seedFromFile<T extends ObjectLiteral>(
@@ -60,6 +69,23 @@ export class SeederService {
       '../../BackendDump/venues.json',
       this.venueRepo,
       'venue',
+    );
+
+    const genres = await this.seedFromFile<Genre>(
+      '../../BackendDump/genres.json',
+      this.genreRepo,
+      'genre',
+    );
+
+    const certificates = await this.seedFromFile<Certificate>(
+      '../../BackendDump/certificates.json',
+      this.certificateRepo,
+      'certificate',
+    );
+    const workers = await this.seedFromFile<Worker>(
+      '../../BackendDump/workers.json',
+      this.workerRepo,
+      'worker',
     );
 
     // 2️⃣ Seed screens with random venues
@@ -123,20 +149,24 @@ export class SeederService {
       const screens = await this.screenRepo.find();
       if (!screens.length) throw new Error('❌ No screens found for seats!');
 
-      const getRandom = <T>(arr: T[]): T =>
-        arr[Math.floor(Math.random() * arr.length)];
+      for (const screen of screens) {
+        for (const seatData of seatsData) {
+          const seat = new Seat();
+          Object.assign(seat, seatData);
 
-      for (const seatData of seatsData) {
-        const seat = new Seat();
-        Object.assign(seat, seatData);
+          // 👇 Give unique name per screen (optional but helpful)
+          seat.name = `${seatData.name}`;
+          seat.screen = screen;
 
-        // 🎲 Random screen assignment
-        seat.screen = getRandom(screens);
+          await this.seatRepo.save(seat);
+        }
 
-        await this.seatRepo.save(seat);
+        console.log(
+          `✅ Seeded ${seatsData.length} seats for screen ${screen.name || screen.id}`,
+        );
       }
 
-      console.log(`✅ Seeded ${seatsData.length} seats with random screens`);
+      console.log(`🎉 Successfully seeded seats for ${screens.length} screens`);
     } else {
       console.log(`⚠️  Seats already exist, skipping seeding.`);
     }

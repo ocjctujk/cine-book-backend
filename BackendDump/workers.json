@@ -1,0 +1,74 @@
+{
+  "worker": [
+    {
+      "id": 1,
+      "name": "Leonardo DiCaprio",
+      "image_url": "https://example.com/images/leonardo_dicaprio.jpg",
+      "introduction": "Academy Award-winning actor known for performances in Inception, Titanic, and The Revenant.",
+      "type": "cast"
+    },
+    {
+      "id": 2,
+      "name": "Christopher Nolan",
+      "image_url": "https://example.com/images/christopher_nolan.jpg",
+      "introduction": "Visionary film director and screenwriter behind acclaimed blockbusters like Inception and Oppenheimer.",
+      "type": "crew"
+    },
+    {
+      "id": 3,
+      "name": "Scarlett Johansson",
+      "image_url": "https://example.com/images/scarlett_johansson.jpg",
+      "introduction": "Renowned actress celebrated for roles in Lost in Translation and the Marvel Cinematic Universe.",
+      "type": "cast"
+    },
+    {
+      "id": 4,
+      "name": "Hans Zimmer",
+      "image_url": "https://example.com/images/hans_zimmer.jpg",
+      "introduction": "Award-winning composer known for his powerful film scores in Interstellar and The Dark Knight.",
+      "type": "crew"
+    },
+    {
+      "id": 5,
+      "name": "Margot Robbie",
+      "image_url": "https://example.com/images/margot_robbie.jpg",
+      "introduction": "Australian actress and producer known for her versatility in roles from Barbie to I, Tonya.",
+      "type": "cast"
+    },
+    {
+      "id": 6,
+      "name": "Roger Deakins",
+      "image_url": "https://example.com/images/roger_deakins.jpg",
+      "introduction": "Legendary cinematographer celebrated for his visual storytelling in films like 1917 and Blade Runner 2049.",
+      "type": "crew"
+    },
+    {
+      "id": 7,
+      "name": "Zendaya",
+      "image_url": "https://example.com/images/zendaya.jpg",
+      "introduction": "Award-winning actress known for her performances in Dune and Euphoria.",
+      "type": "cast"
+    },
+    {
+      "id": 8,
+      "name": "Greta Gerwig",
+      "image_url": "https://example.com/images/greta_gerwig.jpg",
+      "introduction": "Director and writer acclaimed for Lady Bird and Barbie, blending humor and emotional depth.",
+      "type": "crew"
+    },
+    {
+      "id": 9,
+      "name": "Cillian Murphy",
+      "image_url": "https://example.com/images/cillian_murphy.jpg",
+      "introduction": "Irish actor acclaimed for intense performances in Peaky Blinders and Oppenheimer.",
+      "type": "cast"
+    },
+    {
+      "id": 10,
+      "name": "Thelma Schoonmaker",
+      "image_url": "https://example.com/images/thelma_schoonmaker.jpg",
+      "introduction": "Academy Award-winning film editor known for her decades-long collaboration with Martin Scorsese.",
+      "type": "crew"
+    }
+  ]
+}

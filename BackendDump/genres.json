@@ -1,0 +1,19 @@
+{
+  "genre": [
+    {
+      "name": "Action"
+    },
+    {
+      "name": "Romance"
+    },
+    {
+      "name": "Comedy"
+    },
+    {
+      "name": "Drama"
+    },
+    {
+      "name": "Psychological"
+    }
+  ]
+}

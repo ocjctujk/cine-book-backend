@@ -1,0 +1,24 @@
+{
+  "certificate": [
+    {
+      "name": "U",
+      "age": 0
+    },
+    {
+      "name": "UA 7+",
+      "age": 7
+    },
+    {
+      "name": "UA 13+",
+      "age": 13
+    },
+    {
+      "name": "UA 16+",
+      "age": 16
+    },
+    {
+      "name": "A",
+      "age": 18
+    }
+  ]
+}

@@ -34,7 +34,9 @@ export class ShowService {
   async findOne(showId: number) {
     const show = await this.showRepository.findOne({
       relations: {
-        movie: true,
+        movie: {
+          genres: true,
+        },
         screen: {
           seats: true,
         },
@@ -49,7 +51,7 @@ export class ShowService {
     // Fetch all bookings for this show, including the seats booked
     const bookings = await this.bookingRepository.find({
       where: { show: { id: showId } },
-      relations: { seats: true }, // assuming Booking has seats relation
+      relations: { seats: true },
     });
 
     // Extract all booked seat IDs
@@ -57,11 +59,37 @@ export class ShowService {
       booking.seats.map((seat) => seat.id),
     );
 
-    // Mark each seat in the show as booked/unavailable
+    // Mark each seat as booked/unavailable
     show.screen.seats = show.screen.seats.map((seat) => ({
       ...seat,
       isBooked: bookedSeatIds.includes(seat.id),
     }));
+
+    // ✅ Group seats by columnLetter
+    const groupedSeats = show.screen.seats.reduce(
+      (acc, seat) => {
+        if (!acc[seat.columnLetter]) acc[seat.columnLetter] = [];
+        acc[seat.columnLetter].push(seat);
+        return acc;
+      },
+      {} as Record<string, typeof show.screen.seats>,
+    );
+
+    // ✅ Sort each column by rowNumber and sort columns alphabetically (A, B, C, D...)
+    const sortedGroupedSeats = Object.keys(groupedSeats)
+      .sort((a, b) => a.localeCompare(b)) // columnLetter order
+      .reduce(
+        (acc, key) => {
+          acc[key] = groupedSeats[key].sort(
+            (a, b) => a.rowNumber - b.rowNumber,
+          );
+          return acc;
+        },
+        {} as Record<string, typeof show.screen.seats>,
+      );
+
+    // ✅ Replace the flat seats array with grouped and sorted structure
+    show.screen.seats = sortedGroupedSeats as any;
 
     return show;
   }

@@ -10,6 +10,8 @@ import { VenueModule } from '@src/venue/venue.module';
 import { GenreModule } from '@src/genre/genre.module';
 import { CertificateModule } from '@src/certificates/certificate.module';
 import { WorkerModule } from '@src/worker/worker.module';
+import { LanguageModule } from '@src/language/language.module';
+import { FormatModule } from '@src/format/format.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { WorkerModule } from '@src/worker/worker.module';
     GenreModule,
     CertificateModule,
     WorkerModule,
+    LanguageModule,
+    FormatModule,
   ],
   providers: [SeederService],
 })

@@ -1,5 +1,7 @@
 import { Certificate } from '@src/certificates/certificate.entity';
+import { Format } from '@src/format/format.entity';
 import { Genre } from '@src/genre/genre.entity';
+import { Language } from '@src/language/language.entity';
 import { Show } from '@src/show/show.entity';
 import { Worker } from '@src/worker/worker.entity';
 import {
@@ -45,4 +47,12 @@ export class Movie {
   @ManyToMany(() => Worker, { eager: true })
   @JoinTable()
   workers: Worker[];
+
+  @ManyToMany(() => Language, { eager: true })
+  @JoinTable()
+  languages: Language[];
+
+  @ManyToMany(() => Format, { eager: true })
+  @JoinTable()
+  formats: Format[];
 }

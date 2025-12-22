@@ -12,6 +12,8 @@ import * as fs from 'fs';
 import { Genre } from '@src/genre/genre.entity';
 import { Certificate } from '@src/certificates/certificate.entity';
 import { Worker } from '@src/worker/worker.entity';
+import { Language } from '@src/language/language.entity';
+import { Format } from '@src/format/format.entity';
 
 @Injectable()
 export class SeederService {
@@ -32,6 +34,10 @@ export class SeederService {
     private readonly certificateRepo: Repository<Certificate>,
     @InjectRepository(Worker)
     private readonly workerRepo: Repository<Worker>,
+    @InjectRepository(Language)
+    private readonly languageRepo: Repository<Language>,
+    @InjectRepository(Format)
+    private readonly formatRepo: Repository<Format>,
   ) {}
 
   private async seedFromFile<T extends ObjectLiteral>(
@@ -86,6 +92,16 @@ export class SeederService {
       '../../BackendDump/workers.json',
       this.workerRepo,
       'worker',
+    );
+    const languages = await this.seedFromFile<Language>(
+      '../../BackendDump/languages.json',
+      this.languageRepo,
+      'language',
+    );
+    const formats = await this.seedFromFile<Format>(
+      '../../BackendDump/formats.json',
+      this.formatRepo,
+      'format',
     );
 
     // 2️⃣ Seed screens with random venues

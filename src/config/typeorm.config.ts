@@ -10,6 +10,8 @@ import { Booking } from '@src/booking/booking.entity';
 import { Genre } from '@src/genre/genre.entity';
 import { Certificate } from '@src/certificates/certificate.entity';
 import { Worker } from '@src/worker/worker.entity';
+import { Language } from '@src/language/language.entity';
+import { Format } from '@src/format/format.entity';
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -29,6 +31,8 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
     Genre,
     Certificate,
     Worker,
+    Language,
+    Format,
   ],
   synchronize: true,
 };

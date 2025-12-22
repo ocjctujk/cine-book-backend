@@ -23,6 +23,8 @@ export class ShowService {
     return this.showRepository.find({
       relations: {
         movie: true,
+        language: true,
+        format: true,
       },
       where: {
         movie: {
@@ -40,6 +42,8 @@ export class ShowService {
         screen: {
           seats: true,
         },
+        language: true,
+        format: true,
       },
       where: { id: showId },
     });

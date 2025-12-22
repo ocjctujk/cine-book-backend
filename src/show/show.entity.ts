@@ -1,4 +1,6 @@
 import { Booking } from '@src/booking/booking.entity';
+import { Format } from '@src/format/format.entity';
+import { Language } from '@src/language/language.entity';
 import { Movie } from '@src/movie/movie.entity';
 import { Screen } from '@src/screen/screen.entity';
 import { Venue } from '@src/venue/venue.entity';
@@ -7,6 +9,7 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -33,4 +36,10 @@ export class Show {
 
   @OneToMany(() => Booking, (booking) => booking.show, { eager: false })
   bookings: Booking[];
+
+  @ManyToOne(() => Language, (language) => language.shows, { eager: false })
+  language: Language;
+
+  @ManyToOne(() => Format, (format) => format.shows, { eager: false })
+  format: Format;
 }

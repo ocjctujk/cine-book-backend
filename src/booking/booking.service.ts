@@ -41,6 +41,11 @@ export class BookingService {
         },
         seats: {},
       },
+      order: {
+        show: {
+          time: 'ASC',
+        },
+      },
     });
   }
 

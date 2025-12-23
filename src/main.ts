@@ -10,9 +10,10 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Cine-Book Documentation')
-    .setDescription('The cinebook API description')
+    .setDescription('The Cinebook API description')
     .setVersion('1.0')
-    .addTag('cinebook')
+    .addTag('Cinebook')
+    .addBearerAuth()
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);

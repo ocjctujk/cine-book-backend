@@ -77,9 +77,9 @@ export class User {
   })
   pincode: string;
 
-  @OneToMany(() => Booking, (booking) => booking.show, { eager: true })
+  @OneToMany(() => Booking, (booking) => booking.show, { eager: false })
   bookings: Booking[];
 
-  @OneToMany(() => Venue, (venue) => venue.user, { eager: true })
+  @OneToMany(() => Venue, (venue) => venue.user, { eager: false })
   venues: Venue[];
 }

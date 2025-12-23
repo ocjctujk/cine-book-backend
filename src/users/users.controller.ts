@@ -1,17 +1,18 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   HttpException,
   HttpStatus,
   Post,
   Put,
-  Query,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AuthGuard } from '@src/auth/auth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('users')
 export class UsersController {
@@ -52,6 +53,8 @@ export class UsersController {
     }
   }
 
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @Put()
   async update(@Body() user: UpdateUserDto) {
     try {
@@ -69,8 +72,9 @@ export class UsersController {
       );
     }
   }
-  @Delete()
-  async delete(@Query() id: number) {
-    return await this.userService.remove(id);
-  }
+  // @Delete()
+  // async delete(@Query() deleteUserDto: DeleteUserDto) {
+  //   console.log(deleteUserDto);
+  //   return await this.userService.remove(deleteUserDto);
+  // }
 }

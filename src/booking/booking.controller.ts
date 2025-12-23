@@ -12,15 +12,19 @@ import {
 import { BookingService } from './booking.service';
 import { CreateBookingDto } from './create-booking.dto';
 import { AuthGuard } from '@src/auth/auth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('booking')
 export class BookingController {
   constructor(private readonly bookingService: BookingService) {}
 
-  @Get(':id')
+  @ApiBearerAuth()
+  @Get('user/:id')
   findUserBooking(@Param('id') id: number) {
     return this.bookingService.getUserBookings(id);
   }
+
+  @ApiBearerAuth()
   @UseGuards(AuthGuard)
   @Post()
   async create(@Body() booking: CreateBookingDto): Promise<any> {

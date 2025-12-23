@@ -1,10 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { DeleteResult } from 'typeorm/browser';
+import { DeleteUserDto } from './dto/delete-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -24,19 +25,11 @@ export class UsersService {
     return this.usersRepository.findOneBy({ email: email });
   }
 
-  remove(id: number): Promise<DeleteResult> {
-    return this.usersRepository.delete(id);
+  remove(deleteUserDto: DeleteUserDto): Promise<DeleteResult> {
+    return this.usersRepository.delete(deleteUserDto);
   }
 
   async create(user: CreateUserDto): Promise<User> {
-    const userEmailAlreadyExists = await this.usersRepository.findOneBy({
-      email: user.email,
-    });
-
-    if (userEmailAlreadyExists) {
-      throw new BadRequestException('Email already in use');
-    }
-
     const newUser = this.usersRepository.create(user);
     return this.usersRepository.save(newUser);
   }

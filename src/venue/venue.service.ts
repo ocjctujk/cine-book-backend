@@ -1,9 +1,7 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Venue } from './venue.entity';
 import { Repository } from 'typeorm';
-import { REQUEST } from '@nestjs/core';
-import { AuthGuard } from '@src/auth/auth.guard';
 import { User } from '@src/users/user.entity';
 
 @Injectable()

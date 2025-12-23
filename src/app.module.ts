@@ -11,6 +11,9 @@ import { MovieModule } from './movie/movie.module';
 import { BookingModule } from './booking/booking.module';
 import { ShowModule } from './show/show.module';
 import { AuthModule } from './auth/auth.module';
+import { CertificateModule } from './certificates/certificate.module';
+import { CertificatesController } from './certificates/certificates.controller';
+import { CertificatesService } from './certificates/certificates.service';
 
 @Module({
   imports: [
@@ -21,9 +24,10 @@ import { AuthModule } from './auth/auth.module';
     BookingModule,
     ShowModule,
     AuthModule,
+    CertificateModule,
   ],
-  controllers: [AppController, UsersController],
-  providers: [UsersService],
+  controllers: [AppController, UsersController, CertificatesController],
+  providers: [UsersService, CertificatesService],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}

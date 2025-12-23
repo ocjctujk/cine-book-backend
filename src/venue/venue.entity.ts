@@ -1,6 +1,13 @@
 import { Screen } from '@src/screen/screen.entity';
 import { Show } from '@src/show/show.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from '@src/users/user.entity';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Venue {
@@ -27,4 +34,7 @@ export class Venue {
 
   @OneToMany(() => Screen, (screen) => screen.venue)
   screens: Screen[];
+
+  @ManyToOne(() => User, (user) => user.venues)
+  user: User;
 }

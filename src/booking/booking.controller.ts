@@ -7,9 +7,11 @@ import {
   Param,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { CreateBookingDto } from './create-booking.dto';
+import { AuthGuard } from '@src/auth/auth.guard';
 
 @Controller('booking')
 export class BookingController {
@@ -19,7 +21,7 @@ export class BookingController {
   findUserBooking(@Param('id') id: number) {
     return this.bookingService.getUserBookings(id);
   }
-
+  @UseGuards(AuthGuard)
   @Post()
   async create(@Body() booking: CreateBookingDto): Promise<any> {
     try {

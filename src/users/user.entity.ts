@@ -1,5 +1,11 @@
 import { Booking } from '@src/booking/booking.entity';
+import { Venue } from '@src/venue/venue.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+export enum UserRole {
+  ADMIN = 'admin',
+  USER = 'user',
+  SUPERADMIN = 'superadmin',
+}
 
 @Entity()
 export class User {
@@ -11,6 +17,11 @@ export class User {
 
   @Column({ length: 15 })
   lastName: string;
+
+  @Column({
+    default: UserRole.USER,
+  })
+  role: UserRole;
 
   @Column({ length: 30, unique: true })
   email: string;
@@ -68,4 +79,7 @@ export class User {
 
   @OneToMany(() => Booking, (booking) => booking.show, { eager: true })
   bookings: Booking[];
+
+  @OneToMany(() => Venue, (venue) => venue.user, { eager: true })
+  venues: Venue[];
 }

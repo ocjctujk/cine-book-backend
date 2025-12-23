@@ -11,7 +11,7 @@ import { UsersService } from '@src/users/users.service';
     JwtModule.register({
       global: true,
       secret: 'auth-secret',
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '3d' },
     }),
   ],
   controllers: [AuthController],

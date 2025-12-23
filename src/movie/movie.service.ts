@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Movie } from './movie.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -15,5 +15,19 @@ export class MovieService {
         genres: {},
       },
     });
+  }
+  async findOne(movieId: number): Promise<Movie> {
+    const movie = await this.movieRepository.findOne({
+      relations: {
+        genres: {},
+      },
+      where: {
+        id: movieId,
+      },
+    });
+    if (!movie) {
+      throw new NotFoundException('Movie not found');
+    }
+    return movie;
   }
 }

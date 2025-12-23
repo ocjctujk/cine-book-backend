@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { MovieService } from './movie.service';
 
 @Controller('movie')
@@ -8,5 +8,9 @@ export class MovieController {
   @Get()
   findAll() {
     return this.movieService.findAll();
+  }
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) movieId: number) {
+    return this.movieService.findOne(movieId);
   }
 }
